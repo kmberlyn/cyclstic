@@ -53,5 +53,37 @@ cyclistic_date <-cyclistic_date %>% mutate(season =
                                                        month == "11" ~ "Fall",
                                                        month == "12" ~ "Winter",
                                                        month == "01" ~ "Winter",
-                                                       month == "02" ~ "Winter")
-)
+                                                       month == "02" ~ "Winter"))
+#create column for different time_of_day: Night, Morning, Afternoon, Evening
+cyclistic_date <-cyclistic_date %>% mutate(time_of_day = 
+                                             case_when(hour == "0" ~ "Night",
+                                                       hour == "1" ~ "Night",
+                                                       hour == "2" ~ "Night",
+                                                       hour == "3" ~ "Night",
+                                                       hour == "4" ~ "Night",
+                                                       hour == "5" ~ "Night",
+                                                       hour == "6" ~ "Morning",
+                                                       hour == "7" ~ "Morning",
+                                                       hour == "8" ~ "Morning",
+                                                       hour == "9" ~ "Morning",
+                                                       hour == "10" ~ "Morning",
+                                                       hour == "11" ~ "Morning",
+                                                       hour == "12" ~ "Afternoon",
+                                                       hour == "13" ~ "Afternoon",
+                                                       hour == "14" ~ "Afternoon",
+                                                       hour == "15" ~ "Afternoon",
+                                                       hour == "16" ~ "Afternoon",
+                                                       hour == "17" ~ "Afternoon",
+                                                       hour == "18" ~ "Evening",
+                                                       hour == "19" ~ "Evening",
+                                                       hour == "20" ~ "Evening",
+                                                       hour == "21" ~ "Evening",
+                                                       hour == "22" ~ "Evening",
+                                                       hour == "23" ~ "Evening"))
+
+#clean the data
+cyclistic_date <- na.omit(cyclistic_date) #remove rows with NA values
+cyclistic_date <- distinct(cyclistic_date) #remove duplicate rows 
+cyclistic_date <- cyclistic_date[!(cyclistic_date$ride_length <=0),] #remove where ride_length is 0 or negative
+cyclistic_date <- cyclistic_date %>%  #remove columns not needed: ride_id, start_station_id, end_station_id, start_lat, start_long, end_lat, end_lng
+  select(-c(ride_id, start_station_id, end_station_id,start_lat,start_lng,end_lat,end_lng)) 
