@@ -1,5 +1,6 @@
 # cyclstic
 Google Data Analytics Capstone Project
+
 I anazlyzed a dataset using R fro Cyclstic, a bike-sharing company based in Chicago. I then created a Tableua dashboard with my findings. 
 
 # background 
