@@ -101,19 +101,19 @@ cyclistic_date <- cyclistic_date %>%  #remove columns not needed: ride_id, start
 View(cyclistic_date)
 
 
-#-----------------------------------------TOTAL RIDES--------------------------------------
+------------ TOTAL RIDES ------------
 
 #total number of rides
 nrow(cyclistic_date)
 
 
-#-----------------MEMBER TYPE---------------------
+------------ MEMBER TYPE ------------
 cyclistic_date %>%
   group_by(member_casual) %>% 
   count(member_casual)
 
 
-#----------------TYPE OF BIKE---------------------
+------------ TYPE OF BIKE ------------
 #total rides 
 cyclistic_date %>%
   group_by(rideable_type) %>% 
@@ -123,3 +123,16 @@ cyclistic_date %>%
 cyclistic_date %>%
   group_by(member_casual, rideable_type) %>% 
   count(rideable_type)
+
+------------ HOUR ------------
+#total rides
+cyclistic_date %>%
+  count(hour) %>% 
+  print(n = 24) #lets you view the entire tibble
+
+#total rides by member type 
+cyclistic_date %>%
+  group_by(member_casual) %>% 
+  count(hour) %>% 
+  print(n = 48) #lets you view the entire tibble
+
