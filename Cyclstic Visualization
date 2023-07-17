@@ -4,25 +4,26 @@ library(lubridate) #dates
 library(hms) #time
 library(data.table) #exporting data frame
 
-#load original .csv files, a years worth of data from August 2020 to July 2021
-aug08_df <- read_csv("202008-divvy-tripdata.csv") 
-sep09_df <- read_csv("202009-divvy-tripdata.csv") 
-oct10_df <- read_csv("202010-divvy-tripdata.csv")
-nov11_df <- read_csv("202011-divvy-tripdata.csv") 
-dec12_df <- read_csv("202012-divvy-tripdata.csv")
-jan01_df <- read_csv("202101-divvy-tripdata.csv") 
-feb02_df <- read_csv("202102-divvy-tripdata.csv") 
-mar03_df <- read_csv("202103-divvy-tripdata.csv")
-apr04_df <- read_csv("202104-divvy-tripdata.csv")
-may05_df <- read_csv("202105-divvy-tripdata.csv") 
-jun06_df <- read_csv("202106-divvy-tripdata.csv") 
-jul07_df <- read_csv("202107-divvy-tripdata.csv") 
+aug_2022 <- read_csv("aug 2022.csv") 
+sep_2022 <- read_csv("sep 2022.csv") 
+oct_2022 <- read_csv("oct 2022.csv")
+nov_2022 <- read_csv("nov 2022.csv") 
+dec_2022 <- read_csv("dec 2022.csv")
+jan_2023 <- read_csv("jan 2023.csv") 
+feb_2023 <- read_csv("feb 2023.csv") 
+march_2023 <- read_csv("march 2023.csv")
+april_2023 <- read_csv("april 2023.csv")
+may_2023 <- read_csv("may 2023.csv") 
+jun_2023 <- read_csv("june 2023.csv") 
+jul_2023 <- read_csv("july 2023.csv") 
+
 
 #merge all of the data frames into one year view
-cyclistic_df <- rbind (aug08_df, sep09_df, oct10_df, nov11_df, dec12_df, jan01_df, feb02_df, mar03_df, apr04_df, may05_df, jun06_df, jul07_df)
+cyclistic_df <- rbind (aug_2022, sep_2022, oct_2022, nov_2022, dec_2022, jan_2023, feb_2023, march_2023, april_2023, may_2023, june_2023, july_2023)
+
 
 #remove individual month data frames to clear up space in the environment 
-remove(aug08_df, sep09_df, oct10_df, nov11_df, dec12_df, jan01_df, feb02_df, mar03_df, apr04_df, may05_df, jun06_df, jul07_df)
+remove(aug_2022, sep_2022, oct_2022, nov_2022, dec_2022, jan_2023, feb_2023, march_2023, april_2023, may_2023, june_2023, july_2023)
 
 #create new data frame to contain new columns
 cyclistic_date <- cyclistic_df
