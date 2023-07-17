@@ -4,6 +4,7 @@ library(lubridate) #dates
 library(hms) #time
 library(data.table) #exporting data frame
 
+
 #load original .csv files, a years worth of data from August 2022 to July 2023
 aug_2022 <- read_csv("aug 2022.csv") 
 sep_2022 <- read_csv("sep 2022.csv") 
@@ -18,16 +19,20 @@ may_2023 <- read_csv("may 2023.csv")
 jun_2023 <- read_csv("june 2023.csv") 
 jul_2023 <- read_csv("july 2023.csv") 
 
+
 #merge all of the data frames into one year view
 cyclistic_df <- rbind (aug_2022, sep_2022, oct_2022, nov_2022, dec_2022, jan_2023, feb_2023, march_2023, april_2023, may_2023, june_2023, july_2023)
 
+
 #remove individual month data frames to clear up space in the environment 
 remove(aug_2022, sep_2022, oct_2022, nov_2022, dec_2022, jan_2023, feb_2023, march_2023, april_2023, may_2023, june_2023, july_2023)
+
 
 #create new data frame to contain new columns
 cyclistic_date <- cyclistic_df
 #calculate ride length by subtracting ended_at time from started_at time and converted it to minutes
 cyclistic_date$ride_length <- difftime(cyclistic_df$ended_at, cyclistic_df$started_at, units = "mins")
+
 
 #create new columns for: day of week, month, day, year, time, hour (to make it look cleaner)
 cyclistic_date$date <- as.Date(cyclistic_date$started_at) #default format is yyyy-mm-dd, use start date
@@ -39,6 +44,7 @@ cyclistic_date$year <- format(as.Date(cyclistic_date$date), "%Y") #create column
 cyclistic_date$time <- format(as.Date(cyclistic_date$date), "%H:%M:%S") #format time as HH:MM:SS
 cyclistic_date$time <- as_hms((cyclistic_df$started_at)) #create new column for time
 cyclistic_date$hour <- hour(cyclistic_date$time) #create new column for hour
+
 
 #create column for different seasons: Spring, Summer, Fall, Winter
 cyclistic_date <-cyclistic_date %>% mutate(season = 
@@ -54,6 +60,8 @@ cyclistic_date <-cyclistic_date %>% mutate(season =
                                                        month == "12" ~ "Winter",
                                                        month == "01" ~ "Winter",
                                                        month == "02" ~ "Winter"))
+
+
 #create column for different time_of_day: Night, Morning, Afternoon, Evening
 cyclistic_date <-cyclistic_date %>% mutate(time_of_day = 
                                              case_when(hour == "0" ~ "Night",
@@ -81,9 +89,13 @@ cyclistic_date <-cyclistic_date %>% mutate(time_of_day =
                                                        hour == "22" ~ "Evening",
                                                        hour == "23" ~ "Evening"))
 
+
 #clean the data
 cyclistic_date <- na.omit(cyclistic_date) #remove rows with NA values
 cyclistic_date <- distinct(cyclistic_date) #remove duplicate rows 
 cyclistic_date <- cyclistic_date[!(cyclistic_date$ride_length <=0),] #remove where ride_length is 0 or negative
 cyclistic_date <- cyclistic_date %>%  #remove columns not needed: ride_id, start_station_id, end_station_id, start_lat, start_long, end_lat, end_lng
   select(-c(ride_id, start_station_id, end_station_id,start_lat,start_lng,end_lat,end_lng)) 
+
+#view the final data
+View(cyclistic_date)
