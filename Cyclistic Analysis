@@ -136,3 +136,68 @@ cyclistic_date %>%
   count(hour) %>% 
   print(n = 48) #lets you view the entire tibble
 
+
+------------ TIME OF DAY ------------
+
+------------ ALL DAY ------------
+#number of rides
+cyclistic_date %>%
+  group_by(time_of_day) %>% 
+  count(time_of_day)
+
+#total rides by member type 
+cyclistic_date %>%
+  group_by(member_casual) %>% 
+  count(time_of_day)
+
+
+------------ MORNING ------------
+#total rides
+cyclistic_date %>%
+  filter(time_of_day == "Morning") %>% 
+  count(time_of_day)
+
+cyclistic_date %>%
+  group_by(member_casual) %>% 
+  filter(time_of_day == "Morning") %>% 
+  count(time_of_day)
+
+
+------------ AFTERNOON ------------
+#total rides 
+cyclistic_date %>%
+  filter(time_of_day == "Afternoon") %>% 
+  count(time_of_day)
+
+#total rides by member type 
+cyclistic_date %>%
+  group_by(member_casual) %>% 
+  filter(time_of_day == "Afternoon") %>% 
+  count(time_of_day)
+
+
+------------ EVENING ------------
+#total rides
+cyclistic_date %>%
+  filter(time_of_day == "Evening") %>% 
+  count(time_of_day)
+
+#total rides by member type
+cyclistic_date %>%
+  group_by(member_casual) %>% 
+  filter(time_of_day == "Evening") %>% 
+  count(time_of_day)
+
+
+------------ NIGHT ------------
+#number of rides 
+cyclistic_date %>%
+  filter(time_of_day == "Night") %>% 
+  count(time_of_day)
+
+#number of rides by member type
+cyclistic_date %>%
+  group_by(member_casual) %>% 
+  filter(time_of_day == "Night") %>% 
+  count(time_of_day)
+
