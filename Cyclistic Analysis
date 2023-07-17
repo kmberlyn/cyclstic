@@ -26,3 +26,32 @@ remove(aug_2022, sep_2022, oct_2022, nov_2022, dec_2022, jan_2023, feb_2023, mar
 
 #create new data frame to contain new columns
 cyclistic_date <- cyclistic_df
+#calculate ride length by subtracting ended_at time from started_at time and converted it to minutes
+cyclistic_date$ride_length <- difftime(cyclistic_df$ended_at, cyclistic_df$started_at, units = "mins")
+
+#create new columns for: day of week, month, day, year, time, hour (to make it look cleaner)
+cyclistic_date$date <- as.Date(cyclistic_date$started_at) #default format is yyyy-mm-dd, use start date
+cyclistic_date$day_of_week <- wday(cyclistic_df$started_at) #calculate the day of the week 
+cyclistic_date$day_of_week <- format(as.Date(cyclistic_date$date), "%A") #create column for day of week
+cyclistic_date$month <- format(as.Date(cyclistic_date$date), "%m")#create column for month
+cyclistic_date$day <- format(as.Date(cyclistic_date$date), "%d") #create column for day
+cyclistic_date$year <- format(as.Date(cyclistic_date$date), "%Y") #create column for year
+cyclistic_date$time <- format(as.Date(cyclistic_date$date), "%H:%M:%S") #format time as HH:MM:SS
+cyclistic_date$time <- as_hms((cyclistic_df$started_at)) #create new column for time
+cyclistic_date$hour <- hour(cyclistic_date$time) #create new column for hour
+
+#create column for different seasons: Spring, Summer, Fall, Winter
+cyclistic_date <-cyclistic_date %>% mutate(season = 
+                                             case_when(month == "03" ~ "Spring",
+                                                       month == "04" ~ "Spring",
+                                                       month == "05" ~ "Spring",
+                                                       month == "06"  ~ "Summer",
+                                                       month == "07"  ~ "Summer",
+                                                       month == "08"  ~ "Summer",
+                                                       month == "09" ~ "Fall",
+                                                       month == "10" ~ "Fall",
+                                                       month == "11" ~ "Fall",
+                                                       month == "12" ~ "Winter",
+                                                       month == "01" ~ "Winter",
+                                                       month == "02" ~ "Winter")
+)
