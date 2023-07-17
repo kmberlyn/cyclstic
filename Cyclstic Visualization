@@ -56,8 +56,7 @@ cyclistic_date <-cyclistic_date %>% mutate(season =
                                                        month == "11" ~ "Fall",
                                                        month == "12" ~ "Winter",
                                                        month == "01" ~ "Winter",
-                                                       month == "02" ~ "Winter")
-)
+                                                       month == "02" ~ "Winter"))
 #create column for different time_of_day: Night, Morning, Afternoon, Evening
 cyclistic_date <-cyclistic_date %>% mutate(time_of_day = 
                                              case_when(hour == "0" ~ "Night",
@@ -83,8 +82,7 @@ cyclistic_date <-cyclistic_date %>% mutate(time_of_day =
                                                        hour == "20" ~ "Evening",
                                                        hour == "21" ~ "Evening",
                                                        hour == "22" ~ "Evening",
-                                                       hour == "23" ~ "Evening")
-)
+                                                       hour == "23" ~ "Evening"))
 
 #create a column for the month using the full month name
 cyclistic_date <-cyclistic_date %>% mutate(month = 
@@ -100,8 +98,7 @@ cyclistic_date <-cyclistic_date %>% mutate(month =
                                                        month == "10" ~ "October",
                                                        month == "11" ~ "November",
                                                        month == "12" ~ "December"
-                                                       )
-)
+                                                       ))
 
 #clean the data
 cyclistic_date <- na.omit(cyclistic_date) #remove rows with NA values
@@ -117,8 +114,8 @@ View(cyclistic_date)
 cyclistic_viz <- cyclistic_date
 
 #clean the data
-cyclistic_tableau <- cyclistic_tableau %>%  #remove columns not needed: start_station_name, end_station_name, time, started_at, ended_at
+cyclistic_viz <- cyclistic_viz %>%  #remove columns not needed: start_station_name, end_station_name, time, started_at, ended_at
   select(-c(start_station_name, end_station_name, time, started_at, ended_at))
 
 #download the new data as a .csv file
-write(cyclistic_tableau,"cyclistic_data.csv")
+write(cyclistic_viz,"cyclistic_data.csv")
